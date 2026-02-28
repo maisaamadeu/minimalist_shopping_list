@@ -14,7 +14,12 @@ class HomeShellPage extends StatefulWidget {
 class _HomeShellPageState extends State<HomeShellPage> {
   int index = 0;
 
-  final tabs = [Routes.lists, Routes.products, Routes.categories, Routes.settings];
+  final tabs = [
+    Routes.lists,
+    Routes.products,
+    Routes.categories,
+    Routes.settings,
+  ];
 
   void onTab(int index) {
     setState(() {
@@ -32,9 +37,18 @@ class _HomeShellPageState extends State<HomeShellPage> {
         onTap: onTab,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Listas'),
-          BottomNavigationBarItem(icon: Icon(Icons.shopping_bag), label: 'Produtos'),
-          BottomNavigationBarItem(icon: Icon(Icons.category), label: 'Categorias'),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Configurações'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_bag),
+            label: 'Produtos',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.category),
+            label: 'Categorias',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Configurações',
+          ),
         ],
       ),
     );

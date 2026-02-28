@@ -42,6 +42,10 @@ ThemeData darkTheme = ThemeData(
       }),
     ),
   ),
+  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    selectedItemColor: Colors.grey.shade300,
+    unselectedItemColor: Colors.grey.shade500,
+  ),
   dividerTheme: DividerThemeData(color: Colors.grey.shade700),
   inputDecorationTheme: InputDecorationTheme(
     filled: true,

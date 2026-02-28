@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:minimalist_shopping_list/core/error/error.dart';
 import 'package:minimalist_shopping_list/features/auth/domain/entities/session_entity.dart';
+import 'package:minimalist_shopping_list/features/auth/domain/params/forgot_password_params.dart';
 import 'package:minimalist_shopping_list/features/auth/domain/params/sign_in_params.dart';
 import 'package:minimalist_shopping_list/features/auth/domain/params/sign_up_params.dart';
 import 'package:minimalist_shopping_list/features/auth/domain/repositories/auth_repository.dart';
@@ -66,6 +67,18 @@ class AuthRepositoryImpl implements AuthRepository {
       await localAuthDatasource.saveSession(result);
 
       return Right(result);
+    } catch (e) {
+      return Left(mapException(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> forgotPassword(
+    ForgotPasswordParams params,
+  ) async {
+    try {
+      await remoteAuthDatasource.forgotPassword(params.email);
+      return Right(true);
     } catch (e) {
       return Left(mapException(e));
     }

@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:minimalist_shopping_list/features/auth/domain/repositories/auth_repository.dart';
+import 'package:minimalist_shopping_list/features/auth/domain/usecases/forgot_password_usecase.dart';
 import 'package:minimalist_shopping_list/features/auth/domain/usecases/has_valid_session_usecase.dart';
 import 'package:minimalist_shopping_list/features/auth/domain/usecases/sign_in_with_email_and_password_usecase.dart';
 import 'package:minimalist_shopping_list/features/auth/domain/usecases/sign_out_usecase.dart';
@@ -13,11 +14,18 @@ import 'package:minimalist_shopping_list/features/auth/infra/repositories/auth_r
 void initAuth() {
   final sl = GetIt.instance;
 
-  sl.registerLazySingleton<LocalAuthDatasource>(() => LocalAuthDatasourceImpl(sl()));
-  sl.registerLazySingleton<RemoteAuthDatasource>(() => RemoteAuthDatasourceImpl(sl()));
-  sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(sl(), sl()));
+  sl.registerLazySingleton<LocalAuthDatasource>(
+    () => LocalAuthDatasourceImpl(sl()),
+  );
+  sl.registerLazySingleton<RemoteAuthDatasource>(
+    () => RemoteAuthDatasourceImpl(sl()),
+  );
+  sl.registerLazySingleton<AuthRepository>(
+    () => AuthRepositoryImpl(sl(), sl()),
+  );
   sl.registerLazySingleton(() => SignInWithEmailAndPasswordUsecase(sl()));
   sl.registerLazySingleton(() => SignUpWithEmailAndPasswordUsecase(sl()));
   sl.registerLazySingleton(() => SignOutUsecase(sl()));
   sl.registerLazySingleton(() => HasValidSessionUsecase(sl()));
+  sl.registerLazySingleton(() => ForgotPasswordUsecase(sl()));
 }

@@ -12,5 +12,5 @@ final router = GoRouter(
   redirect: (context, state) {
     return authGuard.redirect(state.path);
   },
-  routes: [shellRoute(), ...authRoutes, ...shoppingListRoutes, splashRoute],
+  routes: [homeShell, authShell, listDetailRoute, splashRoute],
 );
