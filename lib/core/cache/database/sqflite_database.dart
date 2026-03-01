@@ -1,4 +1,5 @@
 import 'package:minimalist_shopping_list/core/cache/database/local_database.dart';
+import 'package:minimalist_shopping_list/core/cache/database/local_database_keys.dart';
 import 'package:minimalist_shopping_list/core/error/error.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -6,7 +7,20 @@ Future<Database> openSqfliteDatabase() async {
   final databasePath = await getDatabasesPath();
   final path = '$databasePath/app.db';
 
-  return openDatabase(path, version: 1, onCreate: (db, version) async {});
+  return openDatabase(
+    path,
+    version: 1,
+    onCreate: (db, version) async {
+      await db.execute('''
+    CREATE TABLE ${LocalDatabaseKeys.categories} (
+      id TEXT PRIMARY KEY,
+      name TEXT NOT NULL,
+      image_path TEXT,
+      created_at INTEGER NOT NULL
+    )
+  ''');
+    },
+  );
 }
 
 class SqfliteDatabase implements LocalDatabase {
@@ -24,16 +38,25 @@ class SqfliteDatabase implements LocalDatabase {
   }
 
   @override
-  Future<List<Map<String, dynamic>>> query(String table) {
+  Future<List<Map<String, dynamic>>> query(
+    String table, {
+    String? where,
+    List<Object?>? args,
+  }) {
     try {
-      return db.query(table);
+      return db.query(table, where: where, whereArgs: args);
     } catch (e) {
       throw CacheException('Query failed: $e');
     }
   }
 
   @override
-  Future<void> update(String table, Map<String, dynamic> data, String where, List<Object?> args) {
+  Future<void> update(
+    String table,
+    Map<String, dynamic> data, {
+    required String where,
+    required List<Object?> args,
+  }) {
     try {
       return db.update(table, data, where: where, whereArgs: args);
     } catch (e) {
@@ -42,7 +65,11 @@ class SqfliteDatabase implements LocalDatabase {
   }
 
   @override
-  Future<void> delete(String table, String where, List<Object?> args) {
+  Future<void> delete(
+    String table, {
+    required String where,
+    required List<Object?> args,
+  }) {
     try {
       return db.delete(table, where: where, whereArgs: args);
     } catch (e) {

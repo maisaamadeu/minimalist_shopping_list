@@ -39,7 +39,9 @@ class UnauthorizedFailure extends Failure {
 }
 
 class SessionExpiredFailure extends Failure {
-  const SessionExpiredFailure({super.message = 'Sessão expirada. Faça login novamente'});
+  const SessionExpiredFailure({
+    super.message = 'Sessão expirada. Faça login novamente',
+  });
 }
 
 class ForbiddenFailure extends Failure {
@@ -55,11 +57,15 @@ class ConflictFailure extends Failure {
 }
 
 class TooManyRequestsFailure extends Failure {
-  const TooManyRequestsFailure({super.message = 'Muitas requisições. Tente novamente mais tarde'});
+  const TooManyRequestsFailure({
+    super.message = 'Muitas requisições. Tente novamente mais tarde',
+  });
 }
 
 class ServiceUnavailableFailure extends Failure {
-  const ServiceUnavailableFailure({super.message = 'Serviço temporariamente indisponível'});
+  const ServiceUnavailableFailure({
+    super.message = 'Serviço temporariamente indisponível',
+  });
 }
 
 class ParsingFailure extends Failure {
@@ -84,4 +90,8 @@ class BusinessRuleFailure extends Failure {
 
 class EmptyDataFailure extends Failure {
   const EmptyDataFailure({super.message = 'Nenhum dado encontrado'});
+}
+
+class ImageStorageFailure extends Failure {
+  const ImageStorageFailure({required super.message});
 }
